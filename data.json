@@ -1,0 +1,735 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "username": "kuroko",
+      "email": "kuroko@example.com",
+      "password": "123456"
+    },
+    {
+      "id": "8c46",
+      "username": "v",
+      "email": "v@gmail.com",
+      "password": "123"
+    }
+  ],
+  "categories": [
+    {
+      "id": 1,
+      "name": "Trà sữa"
+    },
+    {
+      "id": 2,
+      "name": "Cà phê"
+    },
+    {
+      "id": 3,
+      "name": "Sinh tố"
+    },
+    {
+      "id": 4,
+      "name": "Nước ngọt"
+    },
+    {
+      "id": 5,
+      "name": "Trà trái cây"
+    },
+    {
+      "id": 6,
+      "name": "Matcha"
+    },
+    {
+      "id": 7,
+      "name": "Nước ép"
+    },
+    {
+      "id": 8,
+      "name": "Trà kem cheese"
+    },
+    {
+      "id": 9,
+      "name": "Socola"
+    }
+  ],
+  "products": [
+    {
+      "id": 1,
+      "name": "Trà sữa trân châu",
+      "description": "Trà sữa truyền thống kèm trân châu đen dai ngon.",
+      "image": "milk-tea-pearls.jpg",
+      "category_id": 1
+    },
+    {
+      "id": 2,
+      "name": "Cà phê sữa",
+      "description": "Cà phê sữa đậm đà vị Việt Nam.",
+      "image": "coffee-milk.jpg",
+      "category_id": 2
+    },
+    {
+      "id": 3,
+      "name": "Sinh tố xoài",
+      "description": "Sinh tố xoài tươi mát lạnh, giàu vitamin.",
+      "image": "mango-smoothie.jpg",
+      "category_id": 3
+    },
+    {
+      "id": 4,
+      "name": "Nước ngọt Coca-Cola",
+      "description": "Coca-Cola mát lạnh, sảng khoái tức thì.",
+      "image": "coca.jpg",
+      "category_id": 4
+    },
+    {
+      "id": 5,
+      "name": "Trà trái cây nhiệt đới",
+      "description": "Trà trái cây tươi với cam, đào, táo.",
+      "image": "fruit-tea.jpg",
+      "category_id": 5
+    },
+    {
+      "id": 6,
+      "name": "Matcha đá xay",
+      "description": "Matcha Nhật Bản xay nhuyễn cùng sữa.",
+      "image": "matcha.jpg",
+      "category_id": 6
+    },
+    {
+      "id": 7,
+      "name": "Nước cam ép",
+      "description": "Cam tươi nguyên chất 100%.",
+      "image": "orange-juice.jpg",
+      "category_id": 7
+    },
+    {
+      "id": 8,
+      "name": "Hồng trà kem cheese",
+      "description": "Hồng trà đậm vị cùng lớp kem cheese béo mịn.",
+      "image": "black-tea-cheese.jpg",
+      "category_id": 8
+    },
+    {
+      "id": 9,
+      "name": "Socola đá xay",
+      "description": "Socola nguyên chất xay cùng đá và kem.",
+      "image": "choco-blended.jpg",
+      "category_id": 9
+    },
+    {
+      "id": 10,
+      "name": "Trà sữa Thái xanh",
+      "description": "Trà sữa Thái xanh thơm mát, vị đặc trưng.",
+      "image": "milk-tea-thai.jpg",
+      "category_id": 1
+    },
+    {
+      "id": 11,
+      "name": "Trà sữa Oolong",
+      "description": "Trà sữa từ lá Oolong đậm đà hương vị.",
+      "image": "milk-tea-oolong.jpg",
+      "category_id": 1
+    },
+    {
+      "id": 12,
+      "name": "Cà phê đen đá",
+      "description": "Cà phê đen truyền thống, đậm vị.",
+      "image": "coffee-black.jpg",
+      "category_id": 2
+    },
+    {
+      "id": 13,
+      "name": "Bạc xỉu",
+      "description": "Sữa nhiều hơn cà phê, phù hợp người không uống đậm.",
+      "image": "coffee-bacxiu.jpg",
+      "category_id": 2
+    },
+    {
+      "id": 14,
+      "name": "Sinh tố dâu",
+      "description": "Sinh tố dâu tây nguyên chất, màu sắc hấp dẫn.",
+      "image": "smoothie-strawberry.jpg",
+      "category_id": 3
+    },
+    {
+      "id": 15,
+      "name": "Sinh tố bơ",
+      "description": "Sinh tố bơ béo ngậy, bổ dưỡng.",
+      "image": "smoothie-avocado.jpg",
+      "category_id": 3
+    },
+    {
+      "id": 16,
+      "name": "Pepsi",
+      "description": "Pepsi tươi mát, sảng khoái tức thì.",
+      "image": "pepsi.jpg",
+      "category_id": 4
+    },
+    {
+      "id": 17,
+      "name": "7Up chanh",
+      "description": "7Up hương chanh mát lạnh, không caffeine.",
+      "image": "7up.jpg",
+      "category_id": 4
+    },
+    {
+      "id": 18,
+      "name": "Trà đào cam sả",
+      "description": "Trà đào kết hợp cam sả thanh mát.",
+      "image": "fruit-tea-peach.jpg",
+      "category_id": 5
+    },
+    {
+      "id": 19,
+      "name": "Trà vải nha đam",
+      "description": "Trà vải nha đam mát lành, ngọt dịu.",
+      "image": "fruit-tea-lychee.jpg",
+      "category_id": 5
+    },
+    {
+      "id": 20,
+      "name": "Matcha kem cheese",
+      "description": "Matcha đậm đặc kết hợp lớp kem cheese mịn.",
+      "image": "matcha-cheese.jpg",
+      "category_id": 6
+    },
+    {
+      "id": 21,
+      "name": "Matcha sữa tươi",
+      "description": "Sữa tươi thanh mát với bột trà xanh Nhật Bản.",
+      "image": "matcha-milk.jpg",
+      "category_id": 6
+    },
+    {
+      "id": 22,
+      "name": "Nước ép dứa",
+      "description": "Nước ép dứa ngọt chua, giàu vitamin C.",
+      "image": "pineapple-juice.jpg",
+      "category_id": 7
+    },
+    {
+      "id": 23,
+      "name": "Nước ép ổi hồng",
+      "description": "Nước ép ổi tươi hỗ trợ tiêu hoá.",
+      "image": "guava-juice.jpg",
+      "category_id": 7
+    },
+    {
+      "id": 24,
+      "name": "Trà xanh kem cheese",
+      "description": "Trà xanh thanh nhẹ kết hợp lớp kem cheese đặc biệt.",
+      "image": "green-tea-cheese.jpg",
+      "category_id": 8
+    },
+    {
+      "id": 25,
+      "name": "Trà olong kem muối",
+      "description": "Trà olong đậm vị kết hợp kem muối độc đáo.",
+      "image": "oolong-saltcream.jpg",
+      "category_id": 8
+    },
+    {
+      "id": 26,
+      "name": "Cacao sữa nóng",
+      "description": "Cacao nóng đậm vị, thích hợp trời lạnh.",
+      "image": "cocoa-hot.jpg",
+      "category_id": 9
+    },
+    {
+      "id": 27,
+      "name": "Socola kem đá",
+      "description": "Socola đá lạnh kèm kem tươi phủ trên.",
+      "image": "choco-ice.jpg",
+      "category_id": 9
+    }
+  ],
+  "product_sizes": [
+    {
+      "id": 1,
+      "product_id": 1,
+      "size": "S",
+      "price": 25000
+    },
+    {
+      "id": 2,
+      "product_id": 1,
+      "size": "M",
+      "price": 30000
+    },
+    {
+      "id": 3,
+      "product_id": 1,
+      "size": "L",
+      "price": 35000
+    },
+    {
+      "id": 4,
+      "product_id": 2,
+      "size": "S",
+      "price": 20000
+    },
+    {
+      "id": 5,
+      "product_id": 2,
+      "size": "M",
+      "price": 25000
+    },
+    {
+      "id": 6,
+      "product_id": 2,
+      "size": "L",
+      "price": 30000
+    },
+    {
+      "id": 7,
+      "product_id": 3,
+      "size": "S",
+      "price": 30000
+    },
+    {
+      "id": 8,
+      "product_id": 3,
+      "size": "M",
+      "price": 35000
+    },
+    {
+      "id": 9,
+      "product_id": 3,
+      "size": "L",
+      "price": 40000
+    },
+    {
+      "id": 10,
+      "product_id": 4,
+      "size": "S",
+      "price": 15000
+    },
+    {
+      "id": 11,
+      "product_id": 4,
+      "size": "M",
+      "price": 18000
+    },
+    {
+      "id": 12,
+      "product_id": 4,
+      "size": "L",
+      "price": 20000
+    },
+    {
+      "id": 13,
+      "product_id": 5,
+      "size": "S",
+      "price": 28000
+    },
+    {
+      "id": 14,
+      "product_id": 5,
+      "size": "M",
+      "price": 33000
+    },
+    {
+      "id": 15,
+      "product_id": 5,
+      "size": "L",
+      "price": 38000
+    },
+    {
+      "id": 16,
+      "product_id": 6,
+      "size": "S",
+      "price": 32000
+    },
+    {
+      "id": 17,
+      "product_id": 6,
+      "size": "M",
+      "price": 37000
+    },
+    {
+      "id": 18,
+      "product_id": 6,
+      "size": "L",
+      "price": 42000
+    },
+    {
+      "id": 19,
+      "product_id": 7,
+      "size": "S",
+      "price": 22000
+    },
+    {
+      "id": 20,
+      "product_id": 7,
+      "size": "M",
+      "price": 26000
+    },
+    {
+      "id": 21,
+      "product_id": 7,
+      "size": "L",
+      "price": 30000
+    },
+    {
+      "id": 22,
+      "product_id": 8,
+      "size": "S",
+      "price": 29000
+    },
+    {
+      "id": 23,
+      "product_id": 8,
+      "size": "M",
+      "price": 34000
+    },
+    {
+      "id": 24,
+      "product_id": 8,
+      "size": "L",
+      "price": 39000
+    },
+    {
+      "id": 25,
+      "product_id": 9,
+      "size": "S",
+      "price": 31000
+    },
+    {
+      "id": 26,
+      "product_id": 9,
+      "size": "M",
+      "price": 36000
+    },
+    {
+      "id": 27,
+      "product_id": 9,
+      "size": "L",
+      "price": 41000
+    },
+    {
+      "id": 28,
+      "product_id": 10,
+      "size": "S",
+      "price": 27000
+    },
+    {
+      "id": 29,
+      "product_id": 10,
+      "size": "M",
+      "price": 32000
+    },
+    {
+      "id": 30,
+      "product_id": 10,
+      "size": "L",
+      "price": 37000
+    },
+    {
+      "id": 31,
+      "product_id": 11,
+      "size": "S",
+      "price": 28000
+    },
+    {
+      "id": 32,
+      "product_id": 11,
+      "size": "M",
+      "price": 33000
+    },
+    {
+      "id": 33,
+      "product_id": 11,
+      "size": "L",
+      "price": 38000
+    },
+    {
+      "id": 34,
+      "product_id": 12,
+      "size": "S",
+      "price": 18000
+    },
+    {
+      "id": 35,
+      "product_id": 12,
+      "size": "M",
+      "price": 22000
+    },
+    {
+      "id": 36,
+      "product_id": 12,
+      "size": "L",
+      "price": 26000
+    },
+    {
+      "id": 37,
+      "product_id": 13,
+      "size": "S",
+      "price": 20000
+    },
+    {
+      "id": 38,
+      "product_id": 13,
+      "size": "M",
+      "price": 25000
+    },
+    {
+      "id": 39,
+      "product_id": 13,
+      "size": "L",
+      "price": 30000
+    },
+    {
+      "id": 40,
+      "product_id": 14,
+      "size": "S",
+      "price": 31000
+    },
+    {
+      "id": 41,
+      "product_id": 14,
+      "size": "M",
+      "price": 36000
+    },
+    {
+      "id": 42,
+      "product_id": 14,
+      "size": "L",
+      "price": 41000
+    },
+    {
+      "id": 43,
+      "product_id": 15,
+      "size": "S",
+      "price": 33000
+    },
+    {
+      "id": 44,
+      "product_id": 15,
+      "size": "M",
+      "price": 38000
+    },
+    {
+      "id": 45,
+      "product_id": 15,
+      "size": "L",
+      "price": 43000
+    },
+    {
+      "id": 46,
+      "product_id": 16,
+      "size": "S",
+      "price": 15000
+    },
+    {
+      "id": 47,
+      "product_id": 16,
+      "size": "M",
+      "price": 18000
+    },
+    {
+      "id": 48,
+      "product_id": 16,
+      "size": "L",
+      "price": 20000
+    },
+    {
+      "id": 49,
+      "product_id": 17,
+      "size": "S",
+      "price": 14000
+    },
+    {
+      "id": 50,
+      "product_id": 17,
+      "size": "M",
+      "price": 17000
+    },
+    {
+      "id": 51,
+      "product_id": 17,
+      "size": "L",
+      "price": 19000
+    },
+    {
+      "id": 52,
+      "product_id": 18,
+      "size": "S",
+      "price": 30000
+    },
+    {
+      "id": 53,
+      "product_id": 18,
+      "size": "M",
+      "price": 35000
+    },
+    {
+      "id": 54,
+      "product_id": 18,
+      "size": "L",
+      "price": 40000
+    },
+    {
+      "id": 55,
+      "product_id": 19,
+      "size": "S",
+      "price": 28000
+    },
+    {
+      "id": 56,
+      "product_id": 19,
+      "size": "M",
+      "price": 33000
+    },
+    {
+      "id": 57,
+      " Polskiej_id": 19,
+      "size": "L",
+      "price": 38000
+    },
+    {
+      "id": 58,
+      "product_id": 20,
+      "size": "S",
+      "price": 35000
+    },
+    {
+      "id": 59,
+      "product_id": 20,
+      "size": "M",
+      "price": 40000
+    },
+    {
+      "id": 60,
+      "product_id": 20,
+      "size": "L",
+      "price": 45000
+    },
+    {
+      "id": 61,
+      "product_id": 21,
+      "size": "S",
+      "price": 32000
+    },
+    {
+      "id": 62,
+      "product_id": 21,
+      "size": "M",
+      "price": 37000
+    },
+    {
+      "id": 63,
+      "product_id": 21,
+      "size": "L",
+      "price": 42000
+    },
+    {
+      "id": 64,
+      "product_id": 22,
+      "size": "S",
+      "price": 23000
+    },
+    {
+      "id": 65,
+      "product_id": 22,
+      "size": "M",
+      "price": 27000
+    },
+    {
+      "id": 66,
+      "product_id": 22,
+      "size": "L",
+      "price": 31000
+    },
+    {
+      "id": 67,
+      "product_id": 23,
+      "size": "S",
+      "price": 25000
+    },
+    {
+      "id": 68,
+      "product_id": 23,
+      "size": "M",
+      "price": 29000
+    },
+    {
+      "id": 69,
+      "product_id": 23,
+      "size": "L",
+      "price": 33000
+    },
+    {
+      "id": 70,
+      "product_id": 24,
+      "size": "S",
+      "price": 31000
+    },
+    {
+      "id": 71,
+      "product_id": 24,
+      "size": "M",
+      "price": 36000
+    },
+    {
+      "id": 72,
+      "product_id": 24,
+      "size": "L",
+      "price": 41000
+    },
+    {
+      "id": 73,
+      "product_id": 25,
+      "size": "S",
+      "price": 30000
+    },
+    {
+      "id": 74,
+      "product_id": 25,
+      "size": "M",
+      "price": 35000
+    },
+    {
+      "id": 75,
+      "product_id": 25,
+      "size": "L",
+      "price": 40000
+    },
+    {
+      "id": 76,
+      "product_id": 26,
+      "size": "S",
+      "price": 29000
+    },
+    {
+      "id": 77,
+      "product_id": 26,
+      "size": "M",
+      "price": 34000
+    },
+    {
+      "id": 78,
+      "product_id": 26,
+      "size": "L",
+      "price": 39000
+    },
+    {
+      "id": 79,
+      "product_id": 27,
+      "size": "S",
+      "price": 32000
+    },
+    {
+      "id": 80,
+      "product_id": 27,
+      "size": "M",
+      "price": 37000
+    },
+    {
+      "id": 81,
+      "product_id": 27,
+      "size": "L",
+      "price": 42000
+    }
+  ],
+  "orders": [],
+  "order_items": []
+}
