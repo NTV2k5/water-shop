@@ -56,189 +56,189 @@
       "id": 1,
       "name": "Trà sữa trân châu",
       "description": "Trà sữa truyền thống kèm trân châu đen dai ngon.",
-      "image": "milk-tea-pearls.jpg",
+      "image": "/images/milk-tea.jpg",
       "category_id": 1
     },
     {
       "id": 2,
       "name": "Cà phê sữa",
       "description": "Cà phê sữa đậm đà vị Việt Nam.",
-      "image": "coffee-milk.jpg",
+      "image": "/images/coffee.jpg",
       "category_id": 2
     },
     {
       "id": 3,
       "name": "Sinh tố xoài",
       "description": "Sinh tố xoài tươi mát lạnh, giàu vitamin.",
-      "image": "mango-smoothie.jpg",
+      "image": "/images/mango-smoothie.jpg",
       "category_id": 3
     },
     {
       "id": 4,
       "name": "Nước ngọt Coca-Cola",
       "description": "Coca-Cola mát lạnh, sảng khoái tức thì.",
-      "image": "coca.jpg",
+      "image": "/images/coca.jpg",
       "category_id": 4
     },
     {
       "id": 5,
       "name": "Trà trái cây nhiệt đới",
       "description": "Trà trái cây tươi với cam, đào, táo.",
-      "image": "fruit-tea.jpg",
+      "image": "/images/fruit-tea.jpg",
       "category_id": 5
     },
     {
       "id": 6,
       "name": "Matcha đá xay",
       "description": "Matcha Nhật Bản xay nhuyễn cùng sữa.",
-      "image": "matcha.jpg",
+      "image": "/images/matcha.jpg",
       "category_id": 6
     },
     {
       "id": 7,
       "name": "Nước cam ép",
       "description": "Cam tươi nguyên chất 100%.",
-      "image": "orange-juice.jpg",
+      "image": "/images/orange-juice.jpg",
       "category_id": 7
     },
     {
       "id": 8,
       "name": "Hồng trà kem cheese",
       "description": "Hồng trà đậm vị cùng lớp kem cheese béo mịn.",
-      "image": "black-tea-cheese.jpg",
+      "image": "/images/black-tea-cheese.jpg",
       "category_id": 8
     },
     {
       "id": 9,
       "name": "Socola đá xay",
       "description": "Socola nguyên chất xay cùng đá và kem.",
-      "image": "choco-blended.jpg",
+      "image": "/images/choco-blended.jpg",
       "category_id": 9
     },
     {
       "id": 10,
       "name": "Trà sữa Thái xanh",
       "description": "Trà sữa Thái xanh thơm mát, vị đặc trưng.",
-      "image": "milk-tea-thai.jpg",
+      "image": "/images/milk-tea-thai.jpg",
       "category_id": 1
     },
     {
       "id": 11,
       "name": "Trà sữa Oolong",
       "description": "Trà sữa từ lá Oolong đậm đà hương vị.",
-      "image": "milk-tea-oolong.jpg",
+      "image": "/images/milk-tea-oolong.jpg",
       "category_id": 1
     },
     {
       "id": 12,
       "name": "Cà phê đen đá",
       "description": "Cà phê đen truyền thống, đậm vị.",
-      "image": "coffee-black.jpg",
+      "image": "/images/coffee-black.jpg",
       "category_id": 2
     },
     {
       "id": 13,
       "name": "Bạc xỉu",
       "description": "Sữa nhiều hơn cà phê, phù hợp người không uống đậm.",
-      "image": "coffee-bacxiu.jpg",
+      "image": "/images/coffee-bacxiu.jpg",
       "category_id": 2
     },
     {
       "id": 14,
       "name": "Sinh tố dâu",
       "description": "Sinh tố dâu tây nguyên chất, màu sắc hấp dẫn.",
-      "image": "smoothie-strawberry.jpg",
+      "image": "/images/smoothie-strawberry.jpg",
       "category_id": 3
     },
     {
       "id": 15,
       "name": "Sinh tố bơ",
       "description": "Sinh tố bơ béo ngậy, bổ dưỡng.",
-      "image": "smoothie-avocado.jpg",
+      "image": "/images/smoothie-avocado.jpg",
       "category_id": 3
     },
     {
       "id": 16,
       "name": "Pepsi",
       "description": "Pepsi tươi mát, sảng khoái tức thì.",
-      "image": "pepsi.jpg",
+      "image": "/images/pepsi.jpg",
       "category_id": 4
     },
     {
       "id": 17,
       "name": "7Up chanh",
       "description": "7Up hương chanh mát lạnh, không caffeine.",
-      "image": "7up.jpg",
+      "image": "/images/7up.jpg",
       "category_id": 4
     },
     {
       "id": 18,
       "name": "Trà đào cam sả",
       "description": "Trà đào kết hợp cam sả thanh mát.",
-      "image": "fruit-tea-peach.jpg",
+      "image": "/images/fruit-tea-peach.jpg",
       "category_id": 5
     },
     {
       "id": 19,
       "name": "Trà vải nha đam",
       "description": "Trà vải nha đam mát lành, ngọt dịu.",
-      "image": "fruit-tea-lychee.jpg",
+      "image": "/images/fruit-tea-lychee.jpg",
       "category_id": 5
     },
     {
       "id": 20,
       "name": "Matcha kem cheese",
       "description": "Matcha đậm đặc kết hợp lớp kem cheese mịn.",
-      "image": "matcha-cheese.jpg",
+      "image": "/images/matcha-cheese.jpg",
       "category_id": 6
     },
     {
       "id": 21,
       "name": "Matcha sữa tươi",
       "description": "Sữa tươi thanh mát với bột trà xanh Nhật Bản.",
-      "image": "matcha-milk.jpg",
+      "image": "/images/matcha-milk.jpg",
       "category_id": 6
     },
     {
       "id": 22,
       "name": "Nước ép dứa",
       "description": "Nước ép dứa ngọt chua, giàu vitamin C.",
-      "image": "pineapple-juice.jpg",
+      "image": "/images/pineapple-juice.jpg",
       "category_id": 7
     },
     {
       "id": 23,
       "name": "Nước ép ổi hồng",
       "description": "Nước ép ổi tươi hỗ trợ tiêu hoá.",
-      "image": "guava-juice.jpg",
+      "image": "/images/guava-juice.jpg",
       "category_id": 7
     },
     {
       "id": 24,
       "name": "Trà xanh kem cheese",
       "description": "Trà xanh thanh nhẹ kết hợp lớp kem cheese đặc biệt.",
-      "image": "green-tea-cheese.jpg",
+      "image": "/images/green-tea-cheese.jpg",
       "category_id": 8
     },
     {
       "id": 25,
       "name": "Trà olong kem muối",
       "description": "Trà olong đậm vị kết hợp kem muối độc đáo.",
-      "image": "oolong-saltcream.jpg",
+      "image": "/images/oolong-saltcream.jpg",
       "category_id": 8
     },
     {
       "id": 26,
       "name": "Cacao sữa nóng",
       "description": "Cacao nóng đậm vị, thích hợp trời lạnh.",
-      "image": "cocoa-hot.jpg",
+      "image": "/images/cocoa-hot.jpg",
       "category_id": 9
     },
     {
       "id": 27,
       "name": "Socola kem đá",
       "description": "Socola đá lạnh kèm kem tươi phủ trên.",
-      "image": "choco-ice.jpg",
+      "image": "/images/choco-ice.jpg",
       "category_id": 9
     }
   ],
@@ -581,7 +581,7 @@
     },
     {
       "id": 57,
-      " Polskiej_id": 19,
+      "product_id": 19,
       "size": "L",
       "price": 38000
     },

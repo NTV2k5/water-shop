@@ -1,19 +1,23 @@
 <template>
-  <div class="home">
-    <h2>🥤 Menu nước uống</h2>
+  <div class="home" v-if="Object.keys(visibleCategories).length > 0">
+    <h1>🥤 Menu nước uống</h1>
 
-    <div v-for="(group, category) in visibleCategories" :key="category" class="category-section">
-  <h3>{{ category }}</h3>
-  <div class="grid-wrapper">
-    <div class="grid">
-      <ProductCard
-        v-for="product in group"
-        :key="product.id"
-        :product="product"
-      />
+    <div
+      v-for="(group, category) in visibleCategories"
+      :key="category"
+      class="category-section"
+    >
+      <h3>{{ category }}</h3>
+      <div class="grid-wrapper">
+        <div class="grid">
+          <ProductCard
+            v-for="product in group"
+            :key="product.id"
+            :product="product"
+          />
+        </div>
+      </div>
     </div>
-  </div>
-</div>
   </div>
 </template>
 
@@ -26,16 +30,17 @@ import ProductCard from "../components/ProductCard.vue";
 const store = useStore();
 const route = useRoute();
 
-
 // Tạo dữ liệu nhóm theo category
 const categorizedProducts = computed(() => {
   const map = {};
-  for (const product of store.state.products) {
-    if (!map[product.category]) {
-      map[product.category] = [];
-    }
-    map[product.category].push(product);
+  const categories = store.state.categories;
+
+  for (const cat of categories) {
+    map[cat.name] = store.state.products.filter(
+      (p) => p.category_id === cat.id
+    );
   }
+
   return map;
 });
 
@@ -47,10 +52,14 @@ const visibleCategories = computed(() => {
   }
   return categorizedProducts.value;
 });
+
+console.log("All products: ", store.state.products);
+console.log("Categories: ", store.state.categories);
+console.log("Danh sách sau phân loại: ", categorizedProducts.value);
 </script>
 
 <style scoped>
-h2{
+h2 {
   font-size: 30px;
 }
 .home {
@@ -65,19 +74,39 @@ h2{
 }
 .grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1.5rem;
-  max-width: 1000px;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
-h2 {
+h1 {
   text-align: center;
-  margin-bottom: 2rem;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 h3 {
+  font-size: 1.5rem;
   color: #2c3e50;
   margin-bottom: 1rem;
   border-bottom: 2px solid #ddd;
   padding-bottom: 0.5rem;
+}
+
+/* Mobile (dưới 768px) */
+@media (max-width: 767px) {
+  .grid {
+    grid-template-columns: 1fr; /* 1 cột trên mobile */
+  }
+  h1 {
+    font-size: 1.5rem;
+  }
+}
+
+/* Tablet (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  }
 }
 </style>

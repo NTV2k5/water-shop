@@ -1,16 +1,26 @@
 <template>
   <header class="header">
-   <router-link to="/" class="logo">🍹 Drink Shop</router-link>
-    <nav class="nav">
+    <router-link to="/" class="logo">🍹 Drink Shop</router-link>
+    <button class="hamburger" @click="toggleMenu" v-if="isMobile">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <nav class="nav" :class="{ active: showMenu }">
       <router-link to="/">Trang chủ</router-link>
 
-      <div class="dropdown" @mouseenter="showMenu = true" @mouseleave="showMenu = false">
+      <div
+        class="dropdown"
+        @click="toggleDropdown"
+        :class="{ 'desktop-open': isDropdownOpen && !isMobile }"
+      >
         <span class="dropdown-title">Danh mục ▾</span>
-        <div v-if="showMenu" class="dropdown-menu">
+        <div v-if="isDropdownOpen" class="dropdown-menu">
           <router-link
             v-for="cat in categories"
             :key="cat"
             :to="{ name: 'Home', query: { category: cat } }"
+            @click="selectCategory"
           >
             {{ cat }}
           </router-link>
@@ -29,17 +39,18 @@
   </header>
 </template>
 
-
 <script setup>
-import { computed } from "vue";
+import { computed, ref } from "vue";
 import { useStore } from "vuex";
-import { ref } from "vue";
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 
-const router = useRouter()
+const router = useRouter();
 const store = useStore();
 const user = computed(() => store.state.user);
 const showMenu = ref(false);
+const isMobile = ref(window.innerWidth <= 767);
+const isDropdownOpen = ref(false); // Trạng thái toggle cho dropdown
+
 const categories = [
   "Trà sữa",
   "Cà phê",
@@ -51,10 +62,44 @@ const categories = [
   "Trà kem cheese",
   "Socola",
 ];
+
 const logout = () => {
-  store.commit('logout')
-  router.push('/')
-}
+  store.commit("logout");
+  router.push("/");
+};
+
+const toggleMenu = () => {
+  showMenu.value = !showMenu.value;
+  if (showMenu.value) {
+    isDropdownOpen.value = false; // Đóng dropdown khi mở menu trên mobile
+  }
+};
+
+const toggleDropdown = () => {
+  if (isMobile.value) {
+    if (showMenu.value) {
+      isDropdownOpen.value = !isDropdownOpen.value; // Toggle dropdown trên mobile khi menu đã mở
+    }
+  } else {
+    isDropdownOpen.value = !isDropdownOpen.value; // Toggle độc lập trên desktop
+  }
+};
+
+const selectCategory = () => {
+  isDropdownOpen.value = false; // Ẩn dropdown khi chọn mục
+  if (isMobile.value) {
+    showMenu.value = false; // Ẩn toàn bộ menu trên mobile
+  }
+};
+
+// Cập nhật isMobile khi thay đổi kích thước màn hình
+window.addEventListener("resize", () => {
+  isMobile.value = window.innerWidth <= 767;
+  if (!isMobile.value && showMenu.value) {
+    showMenu.value = false; // Đóng menu khi chuyển sang desktop
+    isDropdownOpen.value = false; // Đóng dropdown khi chuyển sang desktop
+  }
+});
 </script>
 
 <style scoped>
@@ -64,12 +109,13 @@ const logout = () => {
   align-items: center;
   background: #2c3e50;
   color: white;
-  padding: 1rem 2rem;
+  padding: 1rem;
+  position: relative;
 }
 
 .logo {
   font-weight: bold;
-  font-size: 30px;
+  font-size: 1.5rem;
   text-decoration: none;
   color: #fff;
 }
@@ -77,7 +123,8 @@ const logout = () => {
 .nav {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
+  font-size: 1rem;
 }
 
 .nav a {
@@ -101,12 +148,16 @@ const logout = () => {
   color: #333;
   top: 100%;
   left: 0;
-  min-width: 160px;
+  min-width: 150px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   z-index: 10;
   padding: 0.5rem 0;
-  display: flex;
+  display: none; /* Ẩn mặc định */
   flex-direction: column;
+}
+
+.dropdown.desktop-open .dropdown-menu {
+  display: flex; /* Hiển thị dropdown trên desktop khi toggle */
 }
 
 .dropdown-menu a {
@@ -116,5 +167,93 @@ const logout = () => {
 
 .dropdown-menu a:hover {
   background: #eee;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.hamburger span {
+  width: 100%;
+  height: 3px;
+  background: white;
+  transition: all 0.3s;
+}
+
+.nav.active {
+  display: flex !important;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: #2c3e50;
+  padding: 1rem;
+}
+
+.nav.active a,
+.nav.active .dropdown-title {
+  color: white;
+}
+
+.nav.active .dropdown-menu {
+  position: static;
+  width: 100%;
+  box-shadow: none;
+  display: flex; /* Hiển thị dropdown trong menu active trên mobile */
+   background: #2c3e50;
+}
+
+.nav.active .dropdown-menu a {
+  color: white;
+}
+
+/* Mobile (dưới 768px) */
+@media (max-width: 767px) {
+  .nav {
+    display: none;
+  }
+  .hamburger {
+    display: flex;
+  }
+  .nav.active {
+    display: flex;
+  }
+  .logo {
+    font-size: 1.2rem;
+  }
+  .nav a {
+    font-size: 1rem;
+  }
+  .dropdown-menu {
+    min-width: 100%;
+  }
+}
+
+/* Tablet (768px - 1024px) */
+@media (min-width: 768px) and (max-width: 1024px) {
+  .logo {
+    font-size: 1.3rem;
+  }
+  .nav {
+    gap: 1rem;
+  }
+  .nav a {
+    font-size: 0.9rem;
+  }
 }
 </style>

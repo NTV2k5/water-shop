@@ -7,11 +7,7 @@
     </div>
 
     <div v-else>
-      <div
-        v-for="order in history"
-        :key="order.id"
-        class="order"
-      >
+      <div v-for="order in history" :key="order.id" class="order">
         <p><strong>Mã đơn:</strong> {{ order.id }}</p>
         <p><strong>Thời gian:</strong> {{ order.date }}</p>
         <p><strong>Tổng tiền:</strong> {{ order.total }}đ</p>
@@ -30,8 +26,8 @@
               <td>{{ item.product.name }}</td>
               <td>{{ item.size }}</td>
               <td>{{ item.quantity }}</td>
-              <td>{{ item.product.sizes[item.size] }}đ</td>
-              <td>{{ item.product.sizes[item.size] * item.quantity }}đ</td>
+              <td>{{ item.price }}đ</td>
+              <td>{{ item.price * item.quantity }}đ</td>
             </tr>
           </tbody>
         </table>
@@ -45,9 +41,6 @@ import { computed } from 'vue'
 import { useStore } from 'vuex'
 const store = useStore()
 const history = computed(() => store.state.history)
-
-
-
 </script>
 
 <style scoped>
@@ -79,5 +72,26 @@ th, td {
   text-align: center;
   font-size: 18px;
   margin-top: 2rem;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+  th, td {
+    min-width: 100px;
+    padding: 0.5rem;
+  }
+  table {
+    font-size: 0.9rem;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+  th, td {
+    padding: 0.6rem;
+  }
 }
 </style>

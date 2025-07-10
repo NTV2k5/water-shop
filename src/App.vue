@@ -1,11 +1,9 @@
 <template>
   <div id="app">
     <Header />
-    
     <main class="main-content">
       <router-view />
     </main>
-    
     <Footer />
   </div>
 </template>
@@ -14,6 +12,14 @@
 <script setup>
 import Header from './components/TheHeader.vue'
 import Footer from './components/TheFooter.vue'
+import { onMounted } from 'vue'
+import { useStore } from 'vuex'
+
+const store = useStore()
+
+onMounted(() => {
+  store.dispatch('fetchProducts')
+})
 </script>
 
 <style>

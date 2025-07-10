@@ -19,7 +19,6 @@
     </p>
   </div>
 </template>
-
 <script setup>
 import { ref } from "vue";
 import axios from "axios";
@@ -33,22 +32,24 @@ const router = useRouter();
 const store = useStore();
 
 const login = async () => {
+  error.value = ""; // Xóa lỗi cũ trước khi thử đăng nhập
   try {
-    const res = await axios.get('http://localhost:3000/users', {
-  params: {
-    email: email.value,
-    password: password.value
-  }
-})
+    const response = await axios.get('http://localhost:3000/users');
+    const users = response.data;
+    const user = users.find(
+      u => u.email === email.value && u.password === password.value
+    );
 
-    if (res.data.length > 0) {
-      store.commit("setUser", res.data[0]);
+    if (user) {
+      store.commit("setUser", user);
+      // Không cần lưu thủ công ở đây vì setUser đã xử lý
       router.push("/");
     } else {
       error.value = "Sai email hoặc mật khẩu";
     }
-  } catch {
-    error.value = "Lỗi đăng nhập";
+  } catch (err) {
+    console.error("Lỗi đăng nhập:", err);
+    error.value = "Lỗi kết nối server. Vui lòng thử lại sau!";
   }
 };
 </script>

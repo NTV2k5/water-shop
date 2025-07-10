@@ -1,20 +1,22 @@
 <template>
-  <div  class="detail">
+  <div v-if="product" class="detail">
     <img :src="product.image" :alt="product.name" />
     <div class="info">
       <h2>{{ product.name }}</h2>
       <p>{{ product.description }}</p>
 
       <label>Chọn size:</label>
-      <div class="sizes">
-        <button
-          v-for="(price, sizeKey) in product.sizes"
-          :key="sizeKey"
-          :class="{ active: size === sizeKey }"
-          @click="size = sizeKey">
-          {{ sizeKey }} - {{ price }}đ
-        </button>
-      </div>
+     <div class="sizes">
+  <button
+    v-for="sizeObj in filteredSizes"
+    :key="sizeObj.id"
+    :class="{ active: size === sizeObj.size }"
+    @click="size = sizeObj.size"
+  >
+    {{ sizeObj.size }} - {{ sizeObj.price }}đ
+  </button>
+</div>
+
 
       <div class="quantity-group">
         <button @click="decreaseQty" class="qty-btn">−</button>
@@ -25,11 +27,13 @@
       <button class="add-btn" @click="addToCart">🛒 Thêm vào giỏ</button>
     </div>
   </div>
- 
+  <div v-else>
+    <p>Đang tải sản phẩm hoặc sản phẩm không tồn tại.</p>
+  </div>
 </template>
 
 <script setup>
-import { ref, computed, watchEffect  } from "vue";
+import { ref, computed, watchEffect } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
@@ -37,14 +41,14 @@ const route = useRoute();
 const store = useStore();
 const router = useRouter();
 const product = computed(() => {
-  return store.state.products.find(p => p.id == route.params.id)
-})
+  return store.state.products.find((p) => p.id == route.params.id);
+});
 
 watchEffect(() => {
   if (!product.value && store.state.products.length === 0) {
-    store.dispatch('fetchProducts')
+    store.dispatch("fetchProducts");
   }
-})
+});
 
 const size = ref("M");
 const quantity = ref(1);
@@ -58,11 +62,27 @@ const decreaseQty = () => {
 };
 
 function addToCart() {
+  if (!store.getters.isAuthenticated) {
+    alert('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!');
+    return;
+  }
+  const selected = filteredSizes.value.find(s => s.size === size.value);
+  if (!selected) return;
+
   for (let i = 0; i < quantity.value; i++) {
-    store.commit("addToCart", { product: product.value, size: size.value });
+    store.commit("addToCart", {
+      product: product.value,
+      size: size.value,
+      price: selected.price
+    });
   }
   router.push("/cart");
 }
+
+const sizes = computed(() => store.state.productSizes);
+const filteredSizes = computed(() => {
+  return sizes.value.filter((s) => s.product_id === product.value?.id);
+});
 </script>
 
 <style scoped>
@@ -144,5 +164,32 @@ img {
 }
 .add-btn:hover {
   background-color: #e64a19;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+  p {
+    font-size: 0.9rem;
+  }
+  .product-info {
+    flex-direction: column;
+  }
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+  h2 {
+    font-size: 1.6rem;
+  }
+  p {
+    font-size: 0.95rem;
+  }
 }
 </style>

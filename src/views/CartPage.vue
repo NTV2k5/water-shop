@@ -21,13 +21,13 @@
           <tr v-for="(item, index) in cart" :key="index">
             <td>{{ item.product.name }}</td>
             <td>{{ item.size }}</td>
-            <td>{{ item.product.sizes[item.size] }}đ</td>
+            <td>{{ item.price }}đ</td>
             <td>
               <button @click="decrement(index)">-</button>
               {{ item.quantity }}
               <button @click="increment(index)">+</button>
             </td>
-            <td>{{ item.product.sizes[item.size] * item.quantity }}đ</td>
+            <td>{{ item.price * item.quantity }}đ</td>
             <td><button @click="remove(index)">❌</button></td>
           </tr>
         </tbody>
@@ -50,21 +50,36 @@ const cart = computed(() => store.state.cart)
 const total = computed(() => store.getters.cartTotal)
 
 function remove(index) {
+  if (!store.getters.isAuthenticated) {
+    alert('Vui lòng đăng nhập để quản lý giỏ hàng!');
+    return;
+  }
   store.commit('removeFromCart', index)
 }
 function increment(index) {
+  if (!store.getters.isAuthenticated) {
+    alert('Vui lòng đăng nhập để thay đổi số lượng!');
+    return;
+  }
   store.commit('incrementItem', index)
 }
 function decrement(index) {
+  if (!store.getters.isAuthenticated) {
+    alert('Vui lòng đăng nhập để thay đổi số lượng!');
+    return;
+  }
   store.commit('decrementItem', index)
 }
 function checkout() {
+  if (!store.getters.isAuthenticated) {
+    alert('Vui lòng đăng nhập để thanh toán!');
+    return;
+  }
   if (cart.value.length === 0) return
   store.commit('checkout')
   alert('Đã thanh toán thành công!')
 }
 </script>
-
 <style scoped>
 .cart {
   padding: 2rem;
@@ -109,5 +124,36 @@ button {
 .total {
   text-align: right;
   margin-top: 1rem;
+}
+
+/* Mobile */
+@media (max-width: 767px) {
+  h2 {
+    font-size: 1.5rem;
+  }
+  table {
+    display: block;
+    overflow-x: auto;
+  }
+  th, td {
+    min-width: 100px;
+    padding: 0.5rem;
+  }
+  .total {
+    font-size: 1rem;
+  }
+  .checkout-btn {
+    max-width: 100%;
+  }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 1024px) {
+  th, td {
+    padding: 0.6rem;
+  }
+  .total {
+    font-size: 1.1rem;
+  }
 }
 </style>
