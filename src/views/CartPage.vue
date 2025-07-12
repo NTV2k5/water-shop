@@ -42,42 +42,42 @@
 </template>
 
 <script setup>
-import { useStore } from 'vuex'
-import { computed } from 'vue'
+import { useStore } from "vuex";
+import { computed } from "vue";
 
-const store = useStore()
-const cart = computed(() => store.state.cart)
-const total = computed(() => store.getters.cartTotal)
+const store = useStore();
+const cart = computed(() => store.state.cart);
+const total = computed(() => store.getters.cartTotal);
 
 function remove(index) {
   if (!store.getters.isAuthenticated) {
-    alert('Vui lòng đăng nhập để quản lý giỏ hàng!');
+    alert("Vui lòng đăng nhập để quản lý giỏ hàng!");
     return;
   }
-  store.commit('removeFromCart', index)
+  store.commit("removeFromCart", index);
 }
 function increment(index) {
   if (!store.getters.isAuthenticated) {
-    alert('Vui lòng đăng nhập để thay đổi số lượng!');
+    alert("Vui lòng đăng nhập để thay đổi số lượng!");
     return;
   }
-  store.commit('incrementItem', index)
+  store.commit("incrementItem", index);
 }
 function decrement(index) {
   if (!store.getters.isAuthenticated) {
-    alert('Vui lòng đăng nhập để thay đổi số lượng!');
+    alert("Vui lòng đăng nhập để thay đổi số lượng!");
     return;
   }
-  store.commit('decrementItem', index)
+  store.commit("decrementItem", index);
 }
 function checkout() {
   if (!store.getters.isAuthenticated) {
-    alert('Vui lòng đăng nhập để thanh toán!');
+    alert("Vui lòng đăng nhập để thanh toán!");
     return;
   }
-  if (cart.value.length === 0) return
-  store.commit('checkout')
-  alert('Đã thanh toán thành công!')
+  if (cart.value.length === 0) return;
+  store.commit("checkout");
+  alert("Đã thanh toán thành công!");
 }
 </script>
 <style scoped>
@@ -87,14 +87,15 @@ function checkout() {
   margin: auto;
   background-color: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
 table {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
 }
-th, td {
+th,
+td {
   padding: 12px;
   border-bottom: 1px solid #ccc;
   text-align: center;
@@ -135,7 +136,8 @@ button {
     display: block;
     overflow-x: auto;
   }
-  th, td {
+  th,
+  td {
     min-width: 100px;
     padding: 0.5rem;
   }
@@ -149,7 +151,8 @@ button {
 
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
-  th, td {
+  th,
+  td {
     padding: 0.6rem;
   }
   .total {

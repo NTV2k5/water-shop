@@ -3,25 +3,24 @@
     <img :src="product.image" :alt="product.name" />
     <h3>{{ product.name }}</h3>
     <p>{{ product.description }}</p>
-    <p class="price">{{ minPrice }}đ</p>
+    <p class="price">{{ minPrice || 'Đang tải giá...' }}đ</p>
   </div>
 </template>
 
 <script>
 export default {
   props: {
-    product: Object
+    product: Object,
   },
   computed: {
     minPrice() {
       const sizes = this.$store.state.productSizes.filter(
-        s => s.product_id === this.product.id
+        (s) => parseInt(s.product_id) === parseInt(this.product.id)
       );
-      if (!sizes.length) return 0;
-      return Math.min(...sizes.map(s => s.price));
-    }
-  }
-}
+      return sizes.length ? Math.min(...sizes.map((s) => s.price)) : null;
+    },
+  },
+};
 </script>
 
 
@@ -30,7 +29,7 @@ export default {
   background: white;
   border-radius: 10px;
   padding: 1rem;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
   cursor: pointer;
   width: 100%; /* Linh hoạt theo container */
@@ -72,7 +71,6 @@ p {
   color: #e91e63;
   font-weight: bold;
   margin-top: auto; /* Đẩy giá xuống dưới cùng */
-  /* font-size: 1.2rem; */
 }
 
 /* Mobile */

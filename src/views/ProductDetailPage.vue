@@ -6,17 +6,17 @@
       <p>{{ product.description }}</p>
 
       <label>Chọn size:</label>
-     <div class="sizes">
-  <button
-    v-for="sizeObj in filteredSizes"
-    :key="sizeObj.id"
-    :class="{ active: size === sizeObj.size }"
-    @click="size = sizeObj.size"
-  >
-    {{ sizeObj.size }} - {{ sizeObj.price }}đ
-  </button>
-</div>
-
+      <div class="sizes" v-if="filteredSizes.length">
+        <button
+          v-for="sizeObj in filteredSizes"
+          :key="sizeObj.id"
+          :class="{ active: selectedSizeId === sizeObj.id }"
+          @click="selectSize(sizeObj.id)"
+        >
+          {{ sizeObj.size }} - {{ sizeObj.price }}đ
+        </button>
+      </div>
+      <p v-else>Không có tùy chọn size.</p>
 
       <div class="quantity-group">
         <button @click="decreaseQty" class="qty-btn">−</button>
@@ -24,6 +24,7 @@
         <button @click="increaseQty" class="qty-btn">+</button>
       </div>
 
+      <p>Giá: {{ selectedPrice || 0 }}đ</p>
       <button class="add-btn" @click="addToCart">🛒 Thêm vào giỏ</button>
     </div>
   </div>
@@ -33,25 +34,50 @@
 </template>
 
 <script setup>
-import { ref, computed, watchEffect } from "vue";
+/* eslint-disable */
+import { ref, computed, watchEffect, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
 
 const route = useRoute();
 const store = useStore();
 const router = useRouter();
-const product = computed(() => {
-  return store.state.products.find((p) => p.id == route.params.id);
-});
+const product = computed(() => store.state.products.find((p) => parseInt(p.id) === parseInt(route.params.id)));
 
 watchEffect(() => {
   if (!product.value && store.state.products.length === 0) {
     store.dispatch("fetchProducts");
   }
+  if (store.state.productSizes.length === 0) {
+    store.dispatch("fetchProductSizes");
+  }
 });
 
-const size = ref("M");
+const selectedSizeId = ref(null);
 const quantity = ref(1);
+const selectedPrice = ref(0);
+
+const filteredSizes = computed(() => {
+  return store.state.productSizes.filter((s) => parseInt(s.product_id) === parseInt(product.value?.id)) || [];
+});
+
+onMounted(async () => {
+  if (store.state.products.length === 0) {
+    await store.dispatch("fetchProducts");
+  }
+  if (store.state.productSizes.length === 0) {
+    await store.dispatch("fetchProductSizes");
+  }
+  if (filteredSizes.value.length && !selectedSizeId.value) {
+    selectedSizeId.value = filteredSizes.value[0].id;
+  }
+});
+
+const selectSize = (id) => {
+  selectedSizeId.value = id;
+  const sizeObj = filteredSizes.value.find((s) => s.id === id);
+  selectedPrice.value = sizeObj ? sizeObj.price : 0;
+};
 
 const increaseQty = () => {
   quantity.value++;
@@ -63,25 +89,30 @@ const decreaseQty = () => {
 
 function addToCart() {
   if (!store.getters.isAuthenticated) {
-    alert('Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!');
+    alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!");
     return;
   }
-  const selected = filteredSizes.value.find(s => s.size === size.value);
-  if (!selected) return;
+  const selectedSize = filteredSizes.value.find((s) => s.id === selectedSizeId.value);
+  if (!selectedSize) {
+    alert("Vui lòng chọn size!");
+    return;
+  }
 
   for (let i = 0; i < quantity.value; i++) {
     store.commit("addToCart", {
       product: product.value,
-      size: size.value,
-      price: selected.price
+      size: selectedSize.size,
+      price: selectedSize.price,
     });
   }
   router.push("/cart");
 }
 
-const sizes = computed(() => store.state.productSizes);
-const filteredSizes = computed(() => {
-  return sizes.value.filter((s) => s.product_id === product.value?.id);
+watchEffect(() => {
+  if (selectedSizeId.value) {
+    const sizeObj = filteredSizes.value.find((s) => s.id === selectedSizeId.value);
+    selectedPrice.value = sizeObj ? sizeObj.price : 0;
+  }
 });
 </script>
 

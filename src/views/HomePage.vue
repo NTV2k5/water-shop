@@ -1,66 +1,102 @@
 <template>
-  <div class="home" v-if="Object.keys(visibleCategories).length > 0">
-    <h1>🥤 Menu nước uống</h1>
+  <div class="home">
+    <h1 v-if="!loading && !error">🥤 Menu nước uống</h1>
+    <div v-if="loading" class="text-center">Đang tải dữ liệu...</div>
+    <div v-if="error" class="text-center text-red-500">{{ error }}</div>
 
-    <div
-      v-for="(group, category) in visibleCategories"
-      :key="category"
-      class="category-section"
-    >
-      <h3>{{ category }}</h3>
-      <div class="grid-wrapper">
-        <div class="grid">
-          <ProductCard
-            v-for="product in group"
-            :key="product.id"
-            :product="product"
-          />
+    <div v-if="!loading && !error && Object.keys(visibleCategories).length > 0">
+      <div
+        v-for="(group, category) in visibleCategories"
+        :key="category"
+        class="category-section"
+      >
+        <h3>{{ category }} ({{ group.length }} sản phẩm)</h3>
+        <div class="grid-wrapper">
+          <div class="grid">
+            <ProductCard
+              v-for="product in group"
+              :key="product.id"
+              :product="product"
+            />
+          </div>
         </div>
       </div>
+    </div>
+
+    <div
+      v-if="!loading && !error && Object.keys(visibleCategories).length === 0"
+      class="text-center"
+    >
+      Không có sản phẩm hoặc danh mục để hiển thị. Kiểm tra category_id.
     </div>
   </div>
 </template>
 
 <script setup>
-import { computed } from "vue";
+import { computed, ref, onMounted } from "vue";
 import { useStore } from "vuex";
 import { useRoute } from "vue-router";
 import ProductCard from "../components/ProductCard.vue";
 
 const store = useStore();
 const route = useRoute();
+const loading = ref(true);
+const error = ref(null);
 
-// Tạo dữ liệu nhóm theo category
+onMounted(() => {
+  loading.value = true;
+  error.value = null;
+  console.log("Bắt đầu tải dữ liệu từ store...");
+  store.dispatch("fetchProducts")
+    .then(() => store.dispatch("fetchProductSizes"))
+    .then(() => store.dispatch("fetchCategories"))
+    .then(() => {
+      console.log("Products từ store:", store.state.products);
+      console.log("Product sizes từ store:", store.state.productSizes);
+      console.log("Categories từ store:", store.state.categories);
+    })
+    .catch(err => {
+      error.value = "Lỗi khi tải dữ liệu. Vui lòng kiểm tra server.";
+      console.error("Lỗi chi tiết:", err);
+    })
+    .finally(() => {
+      loading.value = false;
+    });
+});
+
 const categorizedProducts = computed(() => {
   const map = {};
   const categories = store.state.categories;
-
   for (const cat of categories) {
-    map[cat.name] = store.state.products.filter(
-      (p) => p.category_id === cat.id
-    );
+    const catId = String(cat.id).trim();
+    const filtered = store.state.products.filter((p) => {
+      const prodCatId = String(p.category_id).trim();
+      return prodCatId === catId;
+    });
+    map[cat.name] = filtered.map(product => {
+      const defaultSize = store.state.productSizes.find(ps => ps.product_id === product.id);
+      return {
+        ...product,
+        price: defaultSize ? defaultSize.price : 0
+      };
+    });
   }
-
   return map;
 });
 
-// Nếu có query category → chỉ trả về nhóm đó
 const visibleCategories = computed(() => {
   const selected = route.query.category;
-  if (selected) {
-    return { [selected]: categorizedProducts.value[selected] || [] };
-  }
-  return categorizedProducts.value;
+  return selected
+    ? { [selected]: categorizedProducts.value[selected] || [] }
+    : categorizedProducts.value;
 });
-
-console.log("All products: ", store.state.products);
-console.log("Categories: ", store.state.categories);
-console.log("Danh sách sau phân loại: ", categorizedProducts.value);
 </script>
 
 <style scoped>
-h2 {
-  font-size: 30px;
+h1 {
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 .home {
   padding: 2rem;
@@ -79,12 +115,6 @@ h2 {
   max-width: 1200px;
   margin: 0 auto;
 }
-
-h1 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 1.5rem;
-}
 h3 {
   font-size: 1.5rem;
   color: #2c3e50;
@@ -93,17 +123,15 @@ h3 {
   padding-bottom: 0.5rem;
 }
 
-/* Mobile (dưới 768px) */
+/* Responsive */
 @media (max-width: 767px) {
   .grid {
-    grid-template-columns: 1fr; /* 1 cột trên mobile */
+    grid-template-columns: 1fr;
   }
   h1 {
     font-size: 1.5rem;
   }
 }
-
-/* Tablet (768px - 1024px) */
 @media (min-width: 768px) and (max-width: 1024px) {
   .grid {
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
