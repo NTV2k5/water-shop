@@ -73,6 +73,22 @@ p {
   margin-top: auto; /* Đẩy giá xuống dưới cùng */
 }
 
+/* Tablet */
+@media (max-width: 1024px) {
+  .card {
+    max-width: 100%;
+  }
+  img {
+    height: 200px;
+  }
+  h3 {
+    font-size: 1.2rem;
+  }
+  p {
+    font-size: 1rem;
+  }
+}
+
 /* Mobile */
 @media (max-width: 767px) {
   .card {

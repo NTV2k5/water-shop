@@ -1,6 +1,6 @@
 <template>
   <div class="auth-container">
-    <h2>🔐 Đăng nhập</h2>
+    <h2>Đăng nhập</h2>
     <form @submit.prevent="login">
       <input v-model="email" type="email" placeholder="Email" required />
       <input
@@ -34,10 +34,10 @@ const store = useStore();
 const login = async () => {
   error.value = ""; // Xóa lỗi cũ trước khi thử đăng nhập
   try {
-    const response = await axios.get('http://localhost:3000/users');
+    const response = await axios.get("http://localhost:3000/users");
     const users = response.data;
     const user = users.find(
-      u => u.email === email.value && u.password === password.value
+      (u) => u.email === email.value && u.password === password.value
     );
 
     if (user) {

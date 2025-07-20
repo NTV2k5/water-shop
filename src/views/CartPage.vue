@@ -1,6 +1,6 @@
 <template>
   <div class="cart">
-    <h2>🛒 Giỏ hàng</h2>
+    <h2>Giỏ hàng</h2>
     <div v-if="cart.length === 0" class="empty">
       Giỏ hàng của bạn đang trống.
     </div>

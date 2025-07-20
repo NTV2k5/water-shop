@@ -1,6 +1,6 @@
 <template>
   <header class="header">
-    <router-link to="/" class="logo">🍹 Drink Shop</router-link>
+    <router-link to="/" class="logo">Drink Shop</router-link>
     <button class="hamburger" @click="toggleMenu" v-if="isMobile">
       <span></span>
       <span></span>
@@ -11,6 +11,8 @@
 
       <div
         class="dropdown"
+        @mouseenter="handleMouseEnter"
+        @mouseleave="handleMouseLeave"
         @click="toggleDropdown"
         :class="{ 'desktop-open': isDropdownOpen && !isMobile }"
       >
@@ -20,7 +22,7 @@
             v-for="cat in categories"
             :key="cat"
             :to="{ name: 'Home', query: { category: cat } }"
-            @click="selectCategory"
+            @click.prevent="handleCategorySelect(cat)"
           >
             {{ cat }}
           </router-link>
@@ -40,7 +42,7 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue";
+import { computed, ref, nextTick } from "vue";
 import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
@@ -49,7 +51,7 @@ const store = useStore();
 const user = computed(() => store.state.user);
 const showMenu = ref(false);
 const isMobile = ref(window.innerWidth <= 767);
-const isDropdownOpen = ref(false); // Trạng thái toggle cho dropdown
+const isDropdownOpen = ref(false);
 
 const categories = [
   "Trà sữa",
@@ -71,33 +73,43 @@ const logout = () => {
 const toggleMenu = () => {
   showMenu.value = !showMenu.value;
   if (showMenu.value) {
-    isDropdownOpen.value = false; // Đóng dropdown khi mở menu trên mobile
+    isDropdownOpen.value = false; // Đóng dropdown khi mở menu
+  }
+};
+
+const handleMouseEnter = () => {
+  if (!isMobile.value) {
+    isDropdownOpen.value = true; // Mở dropdown khi hover trên desktop
+  }
+};
+
+const handleMouseLeave = () => {
+  if (!isMobile.value) {
+    isDropdownOpen.value = false; // Ẩn dropdown khi rời hover trên desktop
   }
 };
 
 const toggleDropdown = () => {
-  if (isMobile.value) {
-    if (showMenu.value) {
-      isDropdownOpen.value = !isDropdownOpen.value; // Toggle dropdown trên mobile khi menu đã mở
-    }
-  } else {
-    isDropdownOpen.value = !isDropdownOpen.value; // Toggle độc lập trên desktop
+  if (isMobile.value && showMenu.value) {
+    isDropdownOpen.value = !isDropdownOpen.value; // Toggle dropdown trên mobile khi menu đã mở
   }
 };
 
-const selectCategory = () => {
-  isDropdownOpen.value = false; // Ẩn dropdown khi chọn mục
+const handleCategorySelect = async (category) => {
+  isDropdownOpen.value = false; // Ẩn dropdown
   if (isMobile.value) {
     showMenu.value = false; // Ẩn toàn bộ menu trên mobile
   }
+  await nextTick(); // Đợi UI cập nhật
+  router.push({ name: "Home", query: { category } }); // Chuyển hướng
 };
 
 // Cập nhật isMobile khi thay đổi kích thước màn hình
 window.addEventListener("resize", () => {
   isMobile.value = window.innerWidth <= 767;
   if (!isMobile.value && showMenu.value) {
-    showMenu.value = false; // Đóng menu khi chuyển sang desktop
-    isDropdownOpen.value = false; // Đóng dropdown khi chuyển sang desktop
+    showMenu.value = false;
+    isDropdownOpen.value = false;
   }
 });
 </script>
@@ -110,7 +122,9 @@ window.addEventListener("resize", () => {
   background: #2c3e50;
   color: white;
   padding: 1rem;
-  position: relative;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
 }
 
 .logo {
@@ -152,12 +166,12 @@ window.addEventListener("resize", () => {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   z-index: 10;
   padding: 0.5rem 0;
-  display: none; /* Ẩn mặc định */
+  display: none;
   flex-direction: column;
 }
 
 .dropdown.desktop-open .dropdown-menu {
-  display: flex; /* Hiển thị dropdown trên desktop khi toggle */
+  display: flex;
 }
 
 .dropdown-menu a {
@@ -214,8 +228,8 @@ window.addEventListener("resize", () => {
   position: static;
   width: 100%;
   box-shadow: none;
-  display: flex; /* Hiển thị dropdown trong menu active trên mobile */
-   background: #2c3e50;
+  display: flex;
+  background: #2c3e50;
 }
 
 .nav.active .dropdown-menu a {

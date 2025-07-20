@@ -34,7 +34,6 @@
 </template>
 
 <script setup>
-/* eslint-disable */
 import { ref, computed, watchEffect, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -42,7 +41,9 @@ import { useStore } from "vuex";
 const route = useRoute();
 const store = useStore();
 const router = useRouter();
-const product = computed(() => store.state.products.find((p) => parseInt(p.id) === parseInt(route.params.id)));
+const product = computed(() =>
+  store.state.products.find((p) => parseInt(p.id) === parseInt(route.params.id))
+);
 
 watchEffect(() => {
   if (!product.value && store.state.products.length === 0) {
@@ -58,7 +59,11 @@ const quantity = ref(1);
 const selectedPrice = ref(0);
 
 const filteredSizes = computed(() => {
-  return store.state.productSizes.filter((s) => parseInt(s.product_id) === parseInt(product.value?.id)) || [];
+  return (
+    store.state.productSizes.filter(
+      (s) => parseInt(s.product_id) === parseInt(product.value?.id)
+    ) || []
+  );
 });
 
 onMounted(async () => {
@@ -92,7 +97,9 @@ function addToCart() {
     alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!");
     return;
   }
-  const selectedSize = filteredSizes.value.find((s) => s.id === selectedSizeId.value);
+  const selectedSize = filteredSizes.value.find(
+    (s) => s.id === selectedSizeId.value
+  );
   if (!selectedSize) {
     alert("Vui lòng chọn size!");
     return;
@@ -110,7 +117,9 @@ function addToCart() {
 
 watchEffect(() => {
   if (selectedSizeId.value) {
-    const sizeObj = filteredSizes.value.find((s) => s.id === selectedSizeId.value);
+    const sizeObj = filteredSizes.value.find(
+      (s) => s.id === selectedSizeId.value
+    );
     selectedPrice.value = sizeObj ? sizeObj.price : 0;
   }
 });

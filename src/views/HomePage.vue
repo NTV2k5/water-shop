@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <h1 v-if="!loading && !error">🥤 Menu nước uống</h1>
+    <h1 v-if="!loading && !error">Menu nước uống</h1>
     <div v-if="loading" class="text-center">Đang tải dữ liệu...</div>
     <div v-if="error" class="text-center text-red-500">{{ error }}</div>
 
@@ -47,7 +47,8 @@ onMounted(() => {
   loading.value = true;
   error.value = null;
   console.log("Bắt đầu tải dữ liệu từ store...");
-  store.dispatch("fetchProducts")
+  store
+    .dispatch("fetchProducts")
     .then(() => store.dispatch("fetchProductSizes"))
     .then(() => store.dispatch("fetchCategories"))
     .then(() => {
@@ -55,7 +56,7 @@ onMounted(() => {
       console.log("Product sizes từ store:", store.state.productSizes);
       console.log("Categories từ store:", store.state.categories);
     })
-    .catch(err => {
+    .catch((err) => {
       error.value = "Lỗi khi tải dữ liệu. Vui lòng kiểm tra server.";
       console.error("Lỗi chi tiết:", err);
     })
@@ -73,11 +74,13 @@ const categorizedProducts = computed(() => {
       const prodCatId = String(p.category_id).trim();
       return prodCatId === catId;
     });
-    map[cat.name] = filtered.map(product => {
-      const defaultSize = store.state.productSizes.find(ps => ps.product_id === product.id);
+    map[cat.name] = filtered.map((product) => {
+      const defaultSize = store.state.productSizes.find(
+        (ps) => ps.product_id === product.id
+      );
       return {
         ...product,
-        price: defaultSize ? defaultSize.price : 0
+        price: defaultSize ? defaultSize.price : 0,
       };
     });
   }

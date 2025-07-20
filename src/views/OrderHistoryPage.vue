@@ -1,6 +1,6 @@
 <template>
   <div class="history">
-    <h2>🧾 Lịch sử đơn hàng</h2>
+    <h2>Lịch sử đơn hàng</h2>
 
     <div v-if="history.length === 0" class="empty">
       Bạn chưa có đơn hàng nào.
@@ -37,10 +37,10 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
-import { useStore } from 'vuex'
-const store = useStore()
-const history = computed(() => store.state.history)
+import { computed } from "vue";
+import { useStore } from "vuex";
+const store = useStore();
+const history = computed(() => store.state.history);
 </script>
 
 <style scoped>
@@ -50,7 +50,7 @@ const history = computed(() => store.state.history)
   margin: auto;
   background-color: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 .order {
   margin-bottom: 2rem;
@@ -63,7 +63,8 @@ table {
   margin-top: 10px;
   border-collapse: collapse;
 }
-th, td {
+th,
+td {
   border-bottom: 1px solid #ddd;
   padding: 8px;
   text-align: center;
@@ -79,7 +80,8 @@ th, td {
   h2 {
     font-size: 1.5rem;
   }
-  th, td {
+  th,
+  td {
     min-width: 100px;
     padding: 0.5rem;
   }
@@ -90,7 +92,8 @@ th, td {
 
 /* Tablet */
 @media (min-width: 768px) and (max-width: 1024px) {
-  th, td {
+  th,
+  td {
     padding: 0.6rem;
   }
 }

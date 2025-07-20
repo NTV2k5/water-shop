@@ -23,15 +23,18 @@ onMounted(() => {
 </script>
 
 <style>
-html, body, #app {
-  height: 100%;
+html, body {
+  height: 100%; /* Đảm bảo chiều cao đầy đủ */
   margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Ngăn cuộn ngang nếu có */
 }
 
 #app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 100vh; /* Đảm bảo chiều cao tối thiểu */
+  position: relative; /* Đảm bảo context cho sticky */
 }
 
 .main-content {
