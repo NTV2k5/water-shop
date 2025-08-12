@@ -24,6 +24,7 @@ import { ref } from "vue";
 import axios from "axios";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
+import { API_URL } from "@/constaint";
 
 const email = ref("");
 const password = ref("");
@@ -32,9 +33,9 @@ const router = useRouter();
 const store = useStore();
 
 const login = async () => {
-  error.value = ""; // Xóa lỗi cũ trước khi thử đăng nhập
+  error.value = "";
   try {
-    const response = await axios.get("http://localhost:3000/users");
+    const response = await axios.get(`${API_URL}/users`);
     const users = response.data;
     const user = users.find(
       (u) => u.email === email.value && u.password === password.value
@@ -42,8 +43,15 @@ const login = async () => {
 
     if (user) {
       store.commit("setUser", user);
-      // Không cần lưu thủ công ở đây vì setUser đã xử lý
-      router.push("/");
+      const userKey = `user_${user.id || user.email}`;
+      localStorage.setItem('userKey', userKey);
+      localStorage.setItem(userKey, JSON.stringify(user));
+      localStorage.setItem('user', JSON.stringify(user));
+      if (user.role === 'admin') {
+        router.push("/admin");
+      } else {
+        router.push("/");
+      }
     } else {
       error.value = "Sai email hoặc mật khẩu";
     }

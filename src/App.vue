@@ -8,39 +8,41 @@
   </div>
 </template>
 
-
 <script setup>
-import Header from './components/TheHeader.vue'
-import Footer from './components/TheFooter.vue'
-import { onMounted } from 'vue'
-import { useStore } from 'vuex'
+import Header from "./components/TheHeader.vue";
+import Footer from "./components/TheFooter.vue";
+import { onMounted } from "vue";
+import { useStore } from "vuex";
 
-const store = useStore()
+const store = useStore();
 
 onMounted(() => {
-  store.dispatch('fetchProducts')
-})
+  store.dispatch("fetchProducts");
+  store.dispatch("fetchProductSizes");
+  store.dispatch("fetchCategories");
+  store.dispatch("fetchToppings"); // Thêm action fetch toppings
+});
 </script>
 
 <style>
-html, body {
-  height: 100%; /* Đảm bảo chiều cao đầy đủ */
+html,
+body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  overflow-x: hidden; /* Ngăn cuộn ngang nếu có */
+  overflow-x: hidden;
 }
 
 #app {
   display: flex;
   flex-direction: column;
-  min-height: 100vh; /* Đảm bảo chiều cao tối thiểu */
-  position: relative; /* Đảm bảo context cho sticky */
+  min-height: 100vh;
+  position: relative;
 }
 
 .main-content {
-  flex: 1; /* chiếm toàn bộ phần còn lại */
+  flex: 1;
   padding: 2rem 1rem;
   background: #f8f8f8;
 }
 </style>
-

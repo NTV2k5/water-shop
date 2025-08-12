@@ -3,26 +3,24 @@
     <img :src="product.image" :alt="product.name" />
     <h3>{{ product.name }}</h3>
     <p>{{ product.description }}</p>
-    <p class="price">{{ minPrice || 'Đang tải giá...' }}đ</p>
+    <p class="price">{{ minPrice.toLocaleString() || "Đang tải giá..." }}đ</p>
   </div>
 </template>
 
-<script>
-export default {
-  props: {
-    product: Object,
-  },
-  computed: {
-    minPrice() {
-      const sizes = this.$store.state.productSizes.filter(
-        (s) => parseInt(s.product_id) === parseInt(this.product.id)
-      );
-      return sizes.length ? Math.min(...sizes.map((s) => s.price)) : null;
-    },
-  },
-};
-</script>
+<script setup>
+import { computed, defineProps} from "vue";
+import { useStore } from "vuex";
 
+const store = useStore();
+const props = defineProps(["product"]);
+
+const minPrice = computed(() => {
+  const sizes = store.state.productSizes.filter(
+    (s) => parseInt(s.product_id) === parseInt(props.product.id)
+  );
+  return sizes.length ? Math.min(...sizes.map((s) => s.price)) : null;
+});
+</script>
 
 <style scoped>
 .card {
@@ -32,9 +30,9 @@ export default {
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
   cursor: pointer;
-  width: 100%; /* Linh hoạt theo container */
-  max-width: 250px; /* Giới hạn tối đa */
-  height: 300px; /* Chiều cao tự động */
+  width: 100%;
+  max-width: 250px;
+  height: 300px; /* Giảm chiều cao vì xóa rating và bình luận */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -46,17 +44,17 @@ export default {
 
 img {
   width: 100%;
-  height: 180px; /* Giới hạn chiều cao hình ảnh để vừa với card */
+  height: 180px;
   object-fit: cover;
   border-radius: 8px;
 }
 
 h3 {
   margin: 0.5rem 0;
-  font-size: 1.3rem; /* Điều chỉnh kích thước chữ nếu cần */
+  font-size: 1.3rem;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap; /* Ngăn chặn chữ dài tràn ra ngoài */
+  white-space: nowrap;
 }
 
 p {
@@ -70,10 +68,9 @@ p {
 .price {
   color: #e91e63;
   font-weight: bold;
-  margin-top: auto; /* Đẩy giá xuống dưới cùng */
+  margin-top: auto;
 }
 
-/* Tablet */
 @media (max-width: 1024px) {
   .card {
     max-width: 100%;
@@ -89,7 +86,6 @@ p {
   }
 }
 
-/* Mobile */
 @media (max-width: 767px) {
   .card {
     max-width: 100%;

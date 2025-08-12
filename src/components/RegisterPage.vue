@@ -3,7 +3,10 @@
     <h2>Đăng ký</h2>
     <form @submit.prevent="register">
       <input v-model="username" placeholder="Tên người dùng" required />
+      <input v-model="fullName" placeholder="Họ và tên" required />
       <input v-model="email" type="email" placeholder="Email" required />
+      <input v-model="phone" placeholder="Số điện thoại" required pattern="[0-9]{10}" title="Số điện thoại phải là 10 chữ số" />
+      <input v-model="address" placeholder="Địa chỉ" required />
       <input
         v-model="password"
         type="password"
@@ -26,24 +29,34 @@ import axios from "axios";
 import { useRouter } from "vue-router";
 
 const username = ref("");
+const fullName = ref("");
 const email = ref("");
+const phone = ref("");
+const address = ref("");
 const password = ref("");
 const error = ref("");
 const router = useRouter();
 
 const register = async () => {
   try {
-    const res = await axios.get(
-      `http://localhost:3000/users?email=${email.value}`
-    );
+    let res = await axios.get(`http://localhost:3000/users?email=${email.value}`);
     if (res.data.length > 0) {
       error.value = "Email đã tồn tại!";
       return;
     }
+    res = await axios.get(`http://localhost:3000/users?phone=${phone.value}`);
+    if (res.data.length > 0) {
+      error.value = "Số điện thoại đã tồn tại!";
+      return;
+    }
     await axios.post("http://localhost:3000/users", {
       username: username.value,
+      fullName: fullName.value,
       email: email.value,
+      phone: phone.value,
+      address: address.value,
       password: password.value,
+      role: "user"
     });
     router.push("/login");
   } catch {
